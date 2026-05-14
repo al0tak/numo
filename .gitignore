@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Vitest / coverage
+coverage/
+*.lcov
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Vite temp
+.vite/
+
+# Environment files
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+
+# Temporary
+*.tmp
+*.temp
