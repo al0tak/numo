@@ -15,6 +15,9 @@ coverage/
 # Vite temp
 .vite/
 
+# TanStack Router plugin temp
+.tanstack/
+
 # Environment files
 .env.local
 .env.*.local
