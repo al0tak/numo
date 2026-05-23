@@ -1,0 +1,28 @@
+import { createRouter, createRoute, createRootRoute } from "@tanstack/react-router";
+import { RootLayout } from "./routes/__root";
+import { HomePage } from "./routes/index";
+import { InvoicesNewPage } from "./routes/invoices.new";
+
+const rootRoute = createRootRoute({ component: RootLayout });
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: HomePage,
+});
+
+const invoicesNewRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/invoices/new",
+  component: InvoicesNewPage,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, invoicesNewRoute]);
+
+export const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
