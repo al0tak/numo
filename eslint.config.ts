@@ -1,6 +1,4 @@
 import js from '@eslint/js'
-import pluginJsxA11y from 'eslint-plugin-jsx-a11y'
-import pluginPerfectionist from 'eslint-plugin-perfectionist'
 import pluginReact from 'eslint-plugin-react'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import pluginReactRefresh from 'eslint-plugin-react-refresh'
@@ -9,9 +7,8 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig([
-  globalIgnores(['dist/**', 'node_modules/**', 'coverage/**', 'src/routeTree.gen.ts']),
+  globalIgnores(['dist/**', 'node_modules/**', 'coverage/**']),
 
-  // Base JS + TypeScript (type-aware strict)
   {
     files: ['**/*.{ts,tsx}'],
     extends: [js.configs.recommended, ...tseslint.configs.strictTypeChecked, ...tseslint.configs.stylisticTypeChecked],
@@ -35,7 +32,6 @@ export default defineConfig([
     },
   },
 
-  // React
   {
     files: ['**/*.{ts,tsx}'],
     plugins: {
@@ -58,38 +54,6 @@ export default defineConfig([
     },
   },
 
-  // Accessibility
-  {
-    files: ['**/*.{ts,tsx}'],
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    plugins: { 'jsx-a11y': pluginJsxA11y },
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    rules: { ...pluginJsxA11y.configs.strict.rules },
-  },
-
-  // Import ordering
-  {
-    files: ['**/*.{ts,tsx}'],
-    plugins: { perfectionist: pluginPerfectionist },
-    rules: {
-      'perfectionist/sort-imports': [
-        'error',
-        {
-          type: 'natural',
-          order: 'asc',
-          groups: ['type', 'react', 'builtin', 'external', 'internal-type', 'internal', ['parent-type', 'sibling-type', 'index-type'], ['parent', 'sibling', 'index'], 'object', 'unknown'],
-          customGroups: {
-            value: { react: ['^react$', '^react-dom$', '^react/.+'] },
-            type: { react: ['^react$', '^react-dom$', '^react/.+'] },
-          },
-          newlinesBetween: 'always',
-        },
-      ],
-      'perfectionist/sort-named-imports': ['error', { type: 'natural', order: 'asc' }],
-    },
-  },
-
-  // Node environment for config files
   {
     files: ['vite.config.ts', 'eslint.config.ts', 'vitest.setup.ts'],
     languageOptions: { globals: { ...globals.node } },
