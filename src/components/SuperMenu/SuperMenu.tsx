@@ -2,46 +2,57 @@ import { motion } from "framer-motion";
 
 import { SuperMenuEditorBody } from "./editor/SuperMenuEditorBody";
 import { SuperMenuHomeBody } from "./home/SuperMenuHomeBody";
+import { SuperMenuSettingsBody } from "./settings/SuperMenuSettingsBody";
 import { spring } from "./spring";
 
-interface SuperMenuPropsBase {
-  variant: "home" | "editor";
-}
-
-interface SuperMenuHomeProps extends SuperMenuPropsBase {
+interface SuperMenuHomeProps {
   variant: "home";
 }
 
-interface SuperMenuEditorProps extends SuperMenuPropsBase {
+interface SuperMenuEditorProps {
   variant: "editor";
   editorText: string;
   onEditorTextChange: (value: string) => void;
 }
 
-export type SuperMenuProps = SuperMenuHomeProps | SuperMenuEditorProps;
+interface SuperMenuSettingsProps {
+  variant: "settings";
+}
+
+export type SuperMenuProps =
+  | SuperMenuHomeProps
+  | SuperMenuEditorProps
+  | SuperMenuSettingsProps;
+
+const VARIANT_CLASSES: Record<SuperMenuProps["variant"], string> = {
+  home: `
+    w-[360px] items-center gap-5 rounded-3xl border border-border bg-card/60 p-4
+    backdrop-blur-xl
+  `,
+  editor: `
+    h-full w-[280px] shrink-0 gap-4 overflow-y-auto rounded-2xl border
+    border-border bg-card p-5
+  `,
+  settings: `
+    h-full w-[480px] overflow-hidden rounded-2xl border border-border bg-card
+  `,
+};
 
 export function SuperMenu(props: SuperMenuProps) {
-  const isHome = props.variant === "home";
-
   return (
     <motion.div
       layoutId="nav-panel"
       transition={spring}
-      className={[
-        "flex flex-col",
-        isHome
-          ? "w-[360px] items-center gap-5 rounded-3xl border border-border bg-card/60 p-4 backdrop-blur-xl"
-          : "h-full w-[280px] shrink-0 gap-4 overflow-y-auto rounded-2xl border border-border bg-card p-5",
-      ].join(" ")}
+      className={["flex flex-col", VARIANT_CLASSES[props.variant]].join(" ")}
     >
-      {isHome ? (
-        <SuperMenuHomeBody />
-      ) : (
+      {props.variant === "home" && <SuperMenuHomeBody />}
+      {props.variant === "editor" && (
         <SuperMenuEditorBody
           editorText={props.editorText}
           onEditorTextChange={props.onEditorTextChange}
         />
       )}
+      {props.variant === "settings" && <SuperMenuSettingsBody />}
     </motion.div>
   );
 }

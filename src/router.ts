@@ -3,6 +3,7 @@ import { createRootRoute,createRoute, createRouter } from "@tanstack/react-route
 import { RootLayout } from "./routes/__root";
 import { HomePage } from "./routes/index";
 import { InvoicesNewPage } from "./routes/invoices.new";
+import { SettingsPage } from "./routes/settings";
 
 const rootRoute = createRootRoute({ component: RootLayout });
 
@@ -18,7 +19,13 @@ const invoicesNewRoute = createRoute({
   component: InvoicesNewPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, invoicesNewRoute]);
+const settingsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/settings",
+  component: SettingsPage,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, invoicesNewRoute, settingsRoute]);
 
 export const router = createRouter({ routeTree });
 

@@ -1,11 +1,9 @@
 import { useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { FileText, LayoutDashboard } from "lucide-react";
+import { FileText, LayoutDashboard, Settings } from "lucide-react";
 
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTranslation } from "@/i18n";
 
-import { ThemeToggle } from "../../ThemeToggle";
 import { spring } from "../spring";
 import { SuperMenuHomeButton } from "./SuperMenuHomeButton";
 
@@ -36,11 +34,11 @@ export function SuperMenuHomeBody() {
           label={t.mainMenu.option2}
           onClick={() => {}}
         />
-        <ThemeToggle />
-      </motion.div>
-
-      <motion.div layout="position" transition={spring} className="w-full">
-        <LanguageSwitcher />
+        <SuperMenuHomeButton
+          icon={<Settings size={22} />}
+          label={t.mainMenu.settings}
+          onClick={() => navigate({ to: "/settings" })}
+        />
       </motion.div>
     </>
   );

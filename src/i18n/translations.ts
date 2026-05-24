@@ -13,6 +13,7 @@ export interface TranslationDict {
   mainMenu: {
     newInvoice: string;
     option2: string;
+    settings: string;
     languageLabel: string;
   };
   theme: {
@@ -34,6 +35,7 @@ const en: TranslationDict = {
   mainMenu: {
     newInvoice: "New Invoice",
     option2: "Option 2",
+    settings: "Settings",
     languageLabel: "Language",
   },
   theme: {
@@ -55,6 +57,7 @@ const es: TranslationDict = {
   mainMenu: {
     newInvoice: "Nueva factura",
     option2: "Opción 2",
+    settings: "Ajustes",
     languageLabel: "Idioma",
   },
   theme: {
@@ -76,6 +79,7 @@ const de: TranslationDict = {
   mainMenu: {
     newInvoice: "Neue Rechnung",
     option2: "Option 2",
+    settings: "Einstellungen",
     languageLabel: "Sprache",
   },
   theme: {
@@ -97,6 +101,7 @@ const uk: TranslationDict = {
   mainMenu: {
     newInvoice: "Новий рахунок",
     option2: "Опція 2",
+    settings: "Налаштування",
     languageLabel: "Мова",
   },
   theme: {
