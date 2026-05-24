@@ -1,7 +1,8 @@
 import { useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { FileText, LayoutDashboard, Settings } from "lucide-react";
+import { FileText, LayoutDashboard } from "lucide-react";
 
+import { ThemeToggle } from "../../ThemeToggle";
 import { spring } from "../spring";
 import { SuperMenuHomeButton } from "./SuperMenuHomeButton";
 
@@ -31,11 +32,7 @@ export function SuperMenuHomeBody() {
           label="Option 2"
           onClick={() => {}}
         />
-        <SuperMenuHomeButton
-          icon={<Settings size={22} />}
-          label="Option 3"
-          onClick={() => {}}
-        />
+        <ThemeToggle />
       </motion.div>
     </>
   );

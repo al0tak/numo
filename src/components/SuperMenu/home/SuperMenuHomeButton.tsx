@@ -10,9 +10,9 @@ export function SuperMenuHomeButton({ icon, label, onClick }: SuperMenuHomeButto
       onClick={onClick}
       className="
         flex aspect-square flex-1 cursor-pointer flex-col items-center
-        justify-center gap-2 rounded-sm bg-black/5 p-3 text-foreground
+        justify-center gap-2 rounded-sm bg-foreground/5 p-3 text-foreground
         transition-colors
-        hover:bg-black/10
+        hover:bg-foreground/10
       "
     >
       {icon}
