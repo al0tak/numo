@@ -2,12 +2,16 @@ import { useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { FileText, LayoutDashboard } from "lucide-react";
 
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useTranslation } from "@/i18n";
+
 import { ThemeToggle } from "../../ThemeToggle";
 import { spring } from "../spring";
 import { SuperMenuHomeButton } from "./SuperMenuHomeButton";
 
 export function SuperMenuHomeBody() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -24,15 +28,19 @@ export function SuperMenuHomeBody() {
       ">
         <SuperMenuHomeButton
           icon={<FileText size={22} />}
-          label="New Invoice"
+          label={t.mainMenu.newInvoice}
           onClick={() => navigate({ to: "/invoices/new" })}
         />
         <SuperMenuHomeButton
           icon={<LayoutDashboard size={22} />}
-          label="Option 2"
+          label={t.mainMenu.option2}
           onClick={() => {}}
         />
         <ThemeToggle />
+      </motion.div>
+
+      <motion.div layout="position" transition={spring} className="w-full">
+        <LanguageSwitcher />
       </motion.div>
     </>
   );
