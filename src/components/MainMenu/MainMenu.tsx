@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
+
 import { MainMenuHomeBody } from "./MainMenuHomeBody";
 import { MainMenuSidebarBody } from "./MainMenuSidebarBody";
-
-export const spring = { type: "spring" as const, stiffness: 300, damping: 30 };
+import { spring } from "./spring";
 
 interface MainMenuProps {
   variant: "home" | "editor";

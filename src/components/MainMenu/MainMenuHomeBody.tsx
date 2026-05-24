@@ -1,19 +1,24 @@
-import { motion } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { FileText, LayoutDashboard, Settings } from "lucide-react";
-import { spring } from "./MainMenu";
+
 import { MainMenuHomeButton } from "./MainMenuHomeButton";
+import { spring } from "./spring";
 
 export function MainMenuHomeBody() {
   const navigate = useNavigate();
 
   return (
     <>
-      <motion.span layout="position" transition={spring} className="text-3xl font-semibold tracking-tight">
+      <motion.span layout="position" transition={spring} className="
+        text-3xl font-semibold tracking-tight
+      ">
         numo
       </motion.span>
 
-      <motion.div layout="position" transition={spring} className="flex gap-4 w-full">
+      <motion.div layout="position" transition={spring} className="
+        flex w-full gap-4
+      ">
         <MainMenuHomeButton
           icon={<FileText size={22} />}
           label="New Invoice"
