@@ -1,27 +1,30 @@
 import { motion } from "framer-motion";
 import { Monitor, Moon, Sun } from "lucide-react";
 
+import { useTranslation } from "@/i18n";
 import { type ThemeMode, useTheme } from "@/lib/theme";
 
-const OPTIONS: { mode: ThemeMode; label: string; Icon: typeof Sun }[] = [
-  { mode: "light", label: "Light", Icon: Sun },
-  { mode: "auto", label: "Auto", Icon: Monitor },
-  { mode: "dark", label: "Dark", Icon: Moon },
+const OPTIONS: { mode: ThemeMode; labelKey: "light" | "auto" | "dark"; Icon: typeof Sun }[] = [
+  { mode: "light", labelKey: "light", Icon: Sun },
+  { mode: "auto", labelKey: "auto", Icon: Monitor },
+  { mode: "dark", labelKey: "dark", Icon: Moon },
 ];
 
 export function ThemeToggle() {
   const { mode, setMode } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <div
       role="radiogroup"
-      aria-label="Theme"
+      aria-label={t.theme.label}
       className="
         relative flex aspect-square flex-1 flex-col gap-0.5 rounded-sm
         bg-foreground/5 p-1
       "
     >
-      {OPTIONS.map(({ mode: optionMode, label, Icon }) => {
+      {OPTIONS.map(({ mode: optionMode, labelKey, Icon }) => {
+        const label = t.theme[labelKey];
         const active = mode === optionMode;
         return (
           <button
