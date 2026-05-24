@@ -6,7 +6,7 @@ export function RootLayout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen overflow-hidden bg-background">
       <AnimatePresence mode="wait" initial={false}>
         <Outlet key={location.pathname} />
       </AnimatePresence>

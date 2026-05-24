@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import { MainMenu } from "../components/MainMenu";
+import { SuperMenu } from "../components/SuperMenu";
 
 export function HomePage() {
   return (
@@ -11,7 +11,7 @@ export function HomePage() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
     >
-      <MainMenu variant="home" />
+      <SuperMenu variant="home" />
     </motion.div>
   );
 }

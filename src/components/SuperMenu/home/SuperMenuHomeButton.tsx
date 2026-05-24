@@ -1,10 +1,10 @@
-interface MainMenuHomeButtonProps {
+interface SuperMenuHomeButtonProps {
   icon: React.ReactNode;
   label: string;
   onClick: () => void;
 }
 
-export function MainMenuHomeButton({ icon, label, onClick }: MainMenuHomeButtonProps) {
+export function SuperMenuHomeButton({ icon, label, onClick }: SuperMenuHomeButtonProps) {
   return (
     <button
       onClick={onClick}
