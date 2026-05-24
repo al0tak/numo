@@ -24,6 +24,9 @@ export interface TranslationDict {
   editor: {
     bodyLabel: string;
     bodyPlaceholder: string;
+    zoomIn: string;
+    zoomOut: string;
+    fitToScreen: string;
   };
 }
 
@@ -42,6 +45,9 @@ const en: TranslationDict = {
   editor: {
     bodyLabel: "Body",
     bodyPlaceholder: "Type something…",
+    zoomIn: "Zoom in",
+    zoomOut: "Zoom out",
+    fitToScreen: "Fit to screen",
   },
 };
 
@@ -60,6 +66,9 @@ const es: TranslationDict = {
   editor: {
     bodyLabel: "Cuerpo",
     bodyPlaceholder: "Escribe algo…",
+    zoomIn: "Acercar",
+    zoomOut: "Alejar",
+    fitToScreen: "Ajustar a pantalla",
   },
 };
 
@@ -78,6 +87,9 @@ const de: TranslationDict = {
   editor: {
     bodyLabel: "Inhalt",
     bodyPlaceholder: "Schreibe etwas…",
+    zoomIn: "Vergrößern",
+    zoomOut: "Verkleinern",
+    fitToScreen: "An Bildschirm anpassen",
   },
 };
 
@@ -96,6 +108,9 @@ const uk: TranslationDict = {
   editor: {
     bodyLabel: "Вміст",
     bodyPlaceholder: "Введіть щось…",
+    zoomIn: "Збільшити",
+    zoomOut: "Зменшити",
+    fitToScreen: "За розміром екрана",
   },
 };
 
