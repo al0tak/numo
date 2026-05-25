@@ -166,8 +166,7 @@ export function EditorPreview({ text }: EditorPreviewProps) {
     <div
       ref={containerRef}
       className="
-        relative h-full flex-1 cursor-grab touch-none overflow-hidden
-        rounded-2xl border border-border bg-muted
+        relative h-full flex-1 cursor-grab touch-none overflow-hidden bg-book
         active:cursor-grabbing
       "
       onPointerDown={onPointerDown}
@@ -194,7 +193,8 @@ export function EditorPreview({ text }: EditorPreviewProps) {
       <div
         className="
           absolute bottom-3 left-3 flex items-center gap-1 rounded-lg border
-          border-border bg-card/80 p-1 shadow-sm backdrop-blur-sm
+          border-book-border/40 bg-book-foreground/10 p-1 shadow-sm
+          backdrop-blur-sm
         "
         onPointerDown={(e) => e.stopPropagation()}
       >
@@ -205,8 +205,8 @@ export function EditorPreview({ text }: EditorPreviewProps) {
           disabled={zoomDisplay <= MIN_ZOOM + 1e-6}
           className="
             flex size-8 cursor-pointer items-center justify-center rounded-md
-            text-foreground/70 transition-colors
-            hover:bg-foreground/5 hover:text-foreground
+            text-book-muted transition-colors
+            hover:bg-book-foreground/10 hover:text-book-foreground
             disabled:cursor-not-allowed disabled:opacity-40
             disabled:hover:bg-transparent
           "
@@ -219,9 +219,9 @@ export function EditorPreview({ text }: EditorPreviewProps) {
           onClick={handleFit}
           className="
             flex h-8 min-w-16 cursor-pointer items-center justify-center gap-1.5
-            rounded-md px-2 text-xs font-medium text-foreground/70
+            rounded-md px-2 text-xs font-medium text-book-muted
             transition-colors
-            hover:bg-foreground/5 hover:text-foreground
+            hover:bg-book-foreground/10 hover:text-book-foreground
           "
         >
           <Maximize2 size={14} />
@@ -234,8 +234,8 @@ export function EditorPreview({ text }: EditorPreviewProps) {
           disabled={zoomDisplay >= MAX_ZOOM - 1e-6}
           className="
             flex size-8 cursor-pointer items-center justify-center rounded-md
-            text-foreground/70 transition-colors
-            hover:bg-foreground/5 hover:text-foreground
+            text-book-muted transition-colors
+            hover:bg-book-foreground/10 hover:text-book-foreground
             disabled:cursor-not-allowed disabled:opacity-40
             disabled:hover:bg-transparent
           "

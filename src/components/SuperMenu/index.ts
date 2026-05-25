@@ -1,2 +1,2 @@
-export type { SuperMenuProps } from "./SuperMenu";
+export type { SuperMenuProps, SuperMenuVariant } from "./SuperMenu";
 export { SuperMenu } from "./SuperMenu";

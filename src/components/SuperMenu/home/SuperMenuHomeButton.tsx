@@ -9,14 +9,14 @@ export function SuperMenuHomeButton({ icon, label, onClick }: SuperMenuHomeButto
     <button
       onClick={onClick}
       className="
-        flex aspect-square flex-1 cursor-pointer flex-col items-center
-        justify-center gap-2 rounded-sm bg-foreground/5 p-3 text-foreground
-        transition-colors
-        hover:bg-foreground/10
+        flex w-full cursor-pointer items-center gap-3 rounded-md border
+        border-book-border/30 bg-book-foreground/5 px-4 py-3
+        text-book-foreground transition-colors
+        hover:bg-book-foreground/10
       "
     >
       {icon}
-      <span className="text-center text-xs/tight font-medium">{label}</span>
+      <span className="text-sm font-medium">{label}</span>
     </button>
   );
 }

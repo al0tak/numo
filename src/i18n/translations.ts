@@ -15,6 +15,7 @@ export interface TranslationDict {
     option2: string;
     settings: string;
     languageLabel: string;
+    by: string;
   };
   theme: {
     label: string;
@@ -37,6 +38,7 @@ const en: TranslationDict = {
     option2: "Option 2",
     settings: "Settings",
     languageLabel: "Language",
+    by: "by",
   },
   theme: {
     label: "Theme",
@@ -59,6 +61,7 @@ const es: TranslationDict = {
     option2: "Opción 2",
     settings: "Ajustes",
     languageLabel: "Idioma",
+    by: "por",
   },
   theme: {
     label: "Tema",
@@ -81,6 +84,7 @@ const de: TranslationDict = {
     option2: "Option 2",
     settings: "Einstellungen",
     languageLabel: "Sprache",
+    by: "von",
   },
   theme: {
     label: "Thema",
@@ -103,6 +107,7 @@ const uk: TranslationDict = {
     option2: "Опція 2",
     settings: "Налаштування",
     languageLabel: "Мова",
+    by: "від",
   },
   theme: {
     label: "Тема",

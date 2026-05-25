@@ -24,6 +24,10 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-book: var(--book);
+  --color-book-foreground: var(--book-foreground);
+  --color-book-border: var(--book-border);
+  --color-book-muted: var(--book-muted);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -49,9 +53,13 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
+  --background: oklch(0.945 0.003 80);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
+  --book: oklch(0.82 0.055 65);
+  --book-foreground: oklch(0.25 0.04 50);
+  --book-border: oklch(0.42 0.07 50);
+  --book-muted: oklch(0.40 0.05 50);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -87,6 +95,10 @@
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
+  --book: oklch(0.32 0.04 60);
+  --book-foreground: oklch(0.92 0.03 70);
+  --book-border: oklch(0.18 0.03 50);
+  --book-muted: oklch(0.70 0.03 65);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
