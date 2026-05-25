@@ -10,6 +10,9 @@ import {
 } from "react";
 
 import { useTranslation } from "@/i18n";
+import { type Invoice } from "@/types/invoice";
+
+import { InvoiceDocument } from "./InvoiceDocument";
 
 const A4_WIDTH = 794;
 const A4_HEIGHT = 1123;
@@ -23,7 +26,7 @@ const BUTTON_ZOOM_STEP = 1.2;
 const SPRING = { type: "spring", stiffness: 320, damping: 32, mass: 0.5 } as const;
 
 interface EditorPreviewProps {
-  text: string;
+  invoice: Invoice;
 }
 
 function clampZoom(z: number) {
@@ -39,7 +42,7 @@ function computeFitZoom(containerWidth: number, containerHeight: number) {
   return clampZoom(Math.min(available.w / A4_WIDTH, available.h / A4_HEIGHT));
 }
 
-export function EditorPreview({ text }: EditorPreviewProps) {
+export function EditorPreview({ invoice }: EditorPreviewProps) {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -183,12 +186,7 @@ export function EditorPreview({ text }: EditorPreviewProps) {
           willChange: "transform",
         }}
       >
-        <div className="
-          pointer-events-none p-12 text-sm wrap-break-word whitespace-pre-wrap
-          text-black select-none
-        ">
-          {text}
-        </div>
+        <InvoiceDocument invoice={invoice} />
       </motion.div>
 
       <div
