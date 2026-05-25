@@ -2,17 +2,19 @@ import { useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 
+import { type Invoice } from "@/types/invoice";
+
 import { spring } from "../spring";
-import { SuperMenuEditorTextArea } from "./SuperMenuEditorTextArea";
+import { SuperMenuInvoiceForm } from "./SuperMenuInvoiceForm";
 
 interface SuperMenuEditorBodyProps {
-  editorText: string;
-  onEditorTextChange: (value: string) => void;
+  invoice: Invoice;
+  onInvoiceChange: (invoice: Invoice) => void;
 }
 
 export function SuperMenuEditorBody({
-  editorText,
-  onEditorTextChange,
+  invoice,
+  onInvoiceChange,
 }: SuperMenuEditorBodyProps) {
   const navigate = useNavigate();
 
@@ -41,10 +43,8 @@ export function SuperMenuEditorBody({
         </motion.span>
       </motion.div>
 
-      <motion.div layout="position" transition={spring} className="
-        flex flex-col gap-2
-      ">
-        <SuperMenuEditorTextArea value={editorText} onChange={onEditorTextChange} />
+      <motion.div layout="position" transition={spring}>
+        <SuperMenuInvoiceForm invoice={invoice} onChange={onInvoiceChange} />
       </motion.div>
     </>
   );

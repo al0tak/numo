@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 
+import { type Invoice } from "@/types/invoice";
+
 import { SuperMenuEditorBody } from "./editor/SuperMenuEditorBody";
 import { SuperMenuHomeBody } from "./home/SuperMenuHomeBody";
 import { SuperMenuSettingsBody } from "./settings/SuperMenuSettingsBody";
@@ -11,8 +13,8 @@ interface SuperMenuHomeProps {
 
 interface SuperMenuEditorProps {
   variant: "editor";
-  editorText: string;
-  onEditorTextChange: (value: string) => void;
+  invoice: Invoice;
+  onInvoiceChange: (invoice: Invoice) => void;
 }
 
 interface SuperMenuSettingsProps {
@@ -48,8 +50,8 @@ export function SuperMenu(props: SuperMenuProps) {
       {props.variant === "home" && <SuperMenuHomeBody />}
       {props.variant === "editor" && (
         <SuperMenuEditorBody
-          editorText={props.editorText}
-          onEditorTextChange={props.onEditorTextChange}
+          invoice={props.invoice}
+          onInvoiceChange={props.onInvoiceChange}
         />
       )}
       {props.variant === "settings" && <SuperMenuSettingsBody />}
