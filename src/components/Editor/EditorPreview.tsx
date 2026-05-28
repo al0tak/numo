@@ -1,5 +1,5 @@
 import { animate, motion, useMotionValue, useMotionValueEvent } from "framer-motion";
-import { Maximize2, ZoomIn, ZoomOut } from "lucide-react";
+import { Download, Maximize2, ZoomIn, ZoomOut } from "lucide-react";
 import {
   type PointerEvent as ReactPointerEvent,
   useCallback,
@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
 
 import { useTranslation } from "@/i18n";
 import { type Invoice } from "@/types/invoice";
@@ -40,6 +41,16 @@ function computeFitZoom(containerWidth: number, containerHeight: number) {
     h: Math.max(0, containerHeight - FIT_PADDING * 2),
   };
   return clampZoom(Math.min(available.w / A4_WIDTH, available.h / A4_HEIGHT));
+}
+
+// The browser uses document.title as the suggested "Save as PDF" filename, so we
+// derive a clean base name from the invoice (no extension — the browser adds .pdf).
+function invoicePrintTitle(invoice: Invoice, fallback: string) {
+  const base = (invoice.companyName || invoice.topText || fallback)
+    .trim()
+    .replace(/[^\wÀ-ɏЀ-ӿ-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return base || fallback;
 }
 
 export function EditorPreview({ invoice }: EditorPreviewProps) {
@@ -165,6 +176,20 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
     animate(y, BASE_Y, SPRING);
   };
 
+  const handleDownload = () => {
+    // Print the invoice via the browser's own engine: vector text, selectable,
+    // tiny file, pixel-identical to the preview (same HTML/CSS). The print
+    // stylesheet (global.css) hides the app and shows only `.invoice-print-frame`.
+    const previousTitle = document.title;
+    const restoreTitle = () => {
+      document.title = previousTitle;
+      window.removeEventListener("afterprint", restoreTitle);
+    };
+    document.title = invoicePrintTitle(invoice, t.invoice.untitled);
+    window.addEventListener("afterprint", restoreTitle);
+    window.print();
+  };
+
   return (
     <div
       ref={containerRef}
@@ -188,6 +213,31 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
       >
         <InvoiceDocument invoice={invoice} />
       </motion.div>
+
+      {/* Print-only copy of the document, rendered to <body> so the print
+          stylesheet can show it on its own clean A4 page (see global.css). */}
+      {createPortal(
+        <div data-print-frame>
+          <InvoiceDocument invoice={invoice} />
+        </div>,
+        document.body,
+      )}
+
+      <button
+        type="button"
+        aria-label={t.editor.downloadPdf}
+        onClick={handleDownload}
+        onPointerDown={(e) => e.stopPropagation()}
+        className="
+          absolute right-3 bottom-3 flex h-10 cursor-pointer items-center gap-2
+          rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground
+          shadow-sm transition-opacity
+          hover:opacity-90
+        "
+      >
+        <Download size={16} />
+        <span>{t.editor.downloadPdf}</span>
+      </button>
 
       <div
         className="

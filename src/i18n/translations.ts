@@ -27,6 +27,7 @@ export interface TranslationDict {
     fitToScreen: string;
     edit: string;
     preview: string;
+    downloadPdf: string;
   };
   invoice: {
     companyName: string;
@@ -86,6 +87,7 @@ const en: TranslationDict = {
     fitToScreen: "Fit to screen",
     edit: "Edit",
     preview: "Preview",
+    downloadPdf: "Download as PDF",
   },
   invoice: {
     companyName: "Company name",
@@ -145,6 +147,7 @@ const es: TranslationDict = {
     fitToScreen: "Ajustar a pantalla",
     edit: "Editar",
     preview: "Vista previa",
+    downloadPdf: "Descargar como PDF",
   },
   invoice: {
     companyName: "Nombre de la empresa",
@@ -204,6 +207,7 @@ const de: TranslationDict = {
     fitToScreen: "An Bildschirm anpassen",
     edit: "Bearbeiten",
     preview: "Vorschau",
+    downloadPdf: "Als PDF herunterladen",
   },
   invoice: {
     companyName: "Firmenname",
@@ -263,6 +267,7 @@ const uk: TranslationDict = {
     fitToScreen: "За розміром екрана",
     edit: "Редагувати",
     preview: "Перегляд",
+    downloadPdf: "Завантажити як PDF",
   },
   invoice: {
     companyName: "Назва компанії",

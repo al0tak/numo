@@ -136,3 +136,37 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
+
+/* "Download as PDF": the print-only invoice frame is hidden on screen and
+   becomes the sole content when printing, so the browser's print engine
+   produces a clean, single-page A4 PDF with selectable vector text. */
+[data-print-frame] {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  /* Don't animate colors during the print snapshot. */
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+
+  #root {
+    display: none !important;
+  }
+
+  [data-print-frame] {
+    display: block;
+    width: 210mm;
+    height: 297mm;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
