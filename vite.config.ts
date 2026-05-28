@@ -6,6 +6,8 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Served from https://al0tak.github.io/numo/ on GitHub Pages.
+  base: "/numo/",
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
   },

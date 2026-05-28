@@ -27,7 +27,11 @@ const settingsRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([indexRoute, invoicesNewRoute, settingsRoute]);
 
-export const router = createRouter({ routeTree });
+export const router = createRouter({
+  routeTree,
+  // Matches Vite's `base` so routing works under the GitHub Pages subpath.
+  basepath: import.meta.env.BASE_URL,
+});
 
 declare module "@tanstack/react-router" {
   interface Register {
