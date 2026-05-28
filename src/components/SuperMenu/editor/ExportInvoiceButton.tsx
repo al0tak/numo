@@ -1,4 +1,4 @@
-import { Download } from "lucide-react";
+import { Upload } from "lucide-react";
 import { useState } from "react";
 
 import { Dialog } from "@/components/ui/dialog";
@@ -38,7 +38,7 @@ export function ExportInvoiceButton({ invoice }: ExportInvoiceButtonProps) {
           hover:bg-foreground/5 hover:text-foreground
         "
       >
-        <Download size={18} />
+        <Upload size={18} />
       </button>
       <Dialog
         open={open}

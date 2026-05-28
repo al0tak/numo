@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { Upload } from "lucide-react";
+import { Download } from "lucide-react";
 import { useRef, useState } from "react";
 
 import { Dialog } from "@/components/ui/dialog";
@@ -38,7 +38,7 @@ export function ImportInvoiceButton() {
         }}
       />
       <SuperMenuHomeButton
-        icon={<Upload size={22} />}
+        icon={<Download size={22} />}
         label={t.io.import}
         onClick={() => inputRef.current?.click()}
       />
