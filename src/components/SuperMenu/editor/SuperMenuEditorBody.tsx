@@ -5,6 +5,7 @@ import { ChevronLeft } from "lucide-react";
 import { type Invoice } from "@/types/invoice";
 
 import { spring } from "../spring";
+import { ExportInvoiceButton } from "./ExportInvoiceButton";
 import { SuperMenuInvoiceForm } from "./SuperMenuInvoiceForm";
 
 interface SuperMenuEditorBodyProps {
@@ -41,6 +42,7 @@ export function SuperMenuEditorBody({
         >
           numo
         </motion.span>
+        <ExportInvoiceButton invoice={invoice} />
       </motion.div>
 
       <motion.div layout="position" transition={spring}>

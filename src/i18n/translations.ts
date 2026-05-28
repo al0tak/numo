@@ -12,7 +12,6 @@ export const DEFAULT_LANGUAGE: Language = "en";
 export interface TranslationDict {
   mainMenu: {
     newInvoice: string;
-    option2: string;
     settings: string;
     languageLabel: string;
   };
@@ -54,12 +53,24 @@ export interface TranslationDict {
     total: string;
     untitled: string;
   };
+  io: {
+    import: string;
+    importErrorTitle: string;
+    importError: string;
+    export: string;
+    exportTitle: string;
+    exportDescription: string;
+    fileNameLabel: string;
+    fileNamePlaceholder: string;
+    cancel: string;
+    download: string;
+    close: string;
+  };
 }
 
 const en: TranslationDict = {
   mainMenu: {
     newInvoice: "New Invoice",
-    option2: "Option 2",
     settings: "Settings",
     languageLabel: "Language",
   },
@@ -101,12 +112,24 @@ const en: TranslationDict = {
     total: "Total",
     untitled: "Untitled",
   },
+  io: {
+    import: "Import",
+    importErrorTitle: "Import failed",
+    importError: "This file isn't a valid invoice JSON.",
+    export: "Export",
+    exportTitle: "Export invoice",
+    exportDescription: "Save this invoice as a JSON file.",
+    fileNameLabel: "File name",
+    fileNamePlaceholder: "invoice",
+    cancel: "Cancel",
+    download: "Download",
+    close: "Close",
+  },
 };
 
 const es: TranslationDict = {
   mainMenu: {
     newInvoice: "Nueva factura",
-    option2: "Opción 2",
     settings: "Ajustes",
     languageLabel: "Idioma",
   },
@@ -148,12 +171,24 @@ const es: TranslationDict = {
     total: "Total",
     untitled: "Sin título",
   },
+  io: {
+    import: "Importar",
+    importErrorTitle: "Error al importar",
+    importError: "Este archivo no es un JSON de factura válido.",
+    export: "Exportar",
+    exportTitle: "Exportar factura",
+    exportDescription: "Guarda esta factura como un archivo JSON.",
+    fileNameLabel: "Nombre del archivo",
+    fileNamePlaceholder: "factura",
+    cancel: "Cancelar",
+    download: "Descargar",
+    close: "Cerrar",
+  },
 };
 
 const de: TranslationDict = {
   mainMenu: {
     newInvoice: "Neue Rechnung",
-    option2: "Option 2",
     settings: "Einstellungen",
     languageLabel: "Sprache",
   },
@@ -195,12 +230,24 @@ const de: TranslationDict = {
     total: "Gesamt",
     untitled: "Ohne Titel",
   },
+  io: {
+    import: "Importieren",
+    importErrorTitle: "Import fehlgeschlagen",
+    importError: "Diese Datei ist kein gültiges Rechnungs-JSON.",
+    export: "Exportieren",
+    exportTitle: "Rechnung exportieren",
+    exportDescription: "Diese Rechnung als JSON-Datei speichern.",
+    fileNameLabel: "Dateiname",
+    fileNamePlaceholder: "rechnung",
+    cancel: "Abbrechen",
+    download: "Herunterladen",
+    close: "Schließen",
+  },
 };
 
 const uk: TranslationDict = {
   mainMenu: {
     newInvoice: "Новий рахунок",
-    option2: "Опція 2",
     settings: "Налаштування",
     languageLabel: "Мова",
   },
@@ -241,6 +288,19 @@ const uk: TranslationDict = {
     footerPlaceholder: "Банківські реквізити, контакти…",
     total: "Разом",
     untitled: "Без назви",
+  },
+  io: {
+    import: "Імпорт",
+    importErrorTitle: "Помилка імпорту",
+    importError: "Цей файл не є дійсним JSON рахунка.",
+    export: "Експорт",
+    exportTitle: "Експортувати рахунок",
+    exportDescription: "Зберегти цей рахунок як файл JSON.",
+    fileNameLabel: "Назва файлу",
+    fileNamePlaceholder: "рахунок",
+    cancel: "Скасувати",
+    download: "Завантажити",
+    close: "Закрити",
   },
 };
 

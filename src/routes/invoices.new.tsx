@@ -3,13 +3,16 @@ import { useState } from "react";
 
 import { SuperMenuEditorBody } from "@/components/SuperMenu/editor/SuperMenuEditorBody";
 import { useTranslation } from "@/i18n";
-import { createEmptyInvoice } from "@/types/invoice";
+import { consumeImportedInvoice } from "@/lib/invoiceIo";
+import { createEmptyInvoice, type Invoice } from "@/types/invoice";
 
 import { EditorPreview } from "../components/Editor";
 import { SuperMenu } from "../components/SuperMenu";
 
 export function InvoicesNewPage() {
-  const [invoice, setInvoice] = useState(createEmptyInvoice);
+  const [invoice, setInvoice] = useState<Invoice>(
+    () => consumeImportedInvoice() ?? createEmptyInvoice(),
+  );
   const [activeView, setActiveView] = useState<"form" | "preview">("form");
   const { t } = useTranslation();
 

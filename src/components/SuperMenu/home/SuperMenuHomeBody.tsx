@@ -1,10 +1,11 @@
 import { useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { FileText, LayoutDashboard, Settings } from "lucide-react";
+import { FileText, Settings } from "lucide-react";
 
 import { useTranslation } from "@/i18n";
 
 import { spring } from "../spring";
+import { ImportInvoiceButton } from "./ImportInvoiceButton";
 import { SuperMenuHomeButton } from "./SuperMenuHomeButton";
 
 export function SuperMenuHomeBody() {
@@ -29,11 +30,7 @@ export function SuperMenuHomeBody() {
           label={t.mainMenu.newInvoice}
           onClick={() => navigate({ to: "/invoices/new" })}
         />
-        <SuperMenuHomeButton
-          icon={<LayoutDashboard size={22} />}
-          label={t.mainMenu.option2}
-          onClick={() => {}}
-        />
+        <ImportInvoiceButton />
         <SuperMenuHomeButton
           icon={<Settings size={22} />}
           label={t.mainMenu.settings}
