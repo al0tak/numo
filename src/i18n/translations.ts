@@ -26,6 +26,8 @@ export interface TranslationDict {
     zoomIn: string;
     zoomOut: string;
     fitToScreen: string;
+    edit: string;
+    preview: string;
   };
   invoice: {
     companyName: string;
@@ -71,6 +73,8 @@ const en: TranslationDict = {
     zoomIn: "Zoom in",
     zoomOut: "Zoom out",
     fitToScreen: "Fit to screen",
+    edit: "Edit",
+    preview: "Preview",
   },
   invoice: {
     companyName: "Company name",
@@ -116,6 +120,8 @@ const es: TranslationDict = {
     zoomIn: "Acercar",
     zoomOut: "Alejar",
     fitToScreen: "Ajustar a pantalla",
+    edit: "Editar",
+    preview: "Vista previa",
   },
   invoice: {
     companyName: "Nombre de la empresa",
@@ -161,6 +167,8 @@ const de: TranslationDict = {
     zoomIn: "Vergrößern",
     zoomOut: "Verkleinern",
     fitToScreen: "An Bildschirm anpassen",
+    edit: "Bearbeiten",
+    preview: "Vorschau",
   },
   invoice: {
     companyName: "Firmenname",
@@ -206,6 +214,8 @@ const uk: TranslationDict = {
     zoomIn: "Збільшити",
     zoomOut: "Зменшити",
     fitToScreen: "За розміром екрана",
+    edit: "Редагувати",
+    preview: "Перегляд",
   },
   invoice: {
     companyName: "Назва компанії",

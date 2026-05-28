@@ -28,15 +28,16 @@ export type SuperMenuProps =
 
 const VARIANT_CLASSES: Record<SuperMenuProps["variant"], string> = {
   home: `
-    w-[360px] items-center gap-5 rounded-3xl border border-border bg-card/60 p-4
-    backdrop-blur-xl
+    w-full max-w-[360px] items-center gap-5 rounded-3xl border border-border
+    bg-card/60 p-4 backdrop-blur-xl
   `,
   editor: `
     h-full w-[280px] shrink-0 gap-4 overflow-y-auto rounded-2xl border
     border-border bg-card p-5
   `,
   settings: `
-    h-full w-[480px] overflow-hidden rounded-2xl border border-border bg-card
+    h-full w-full max-w-[480px] overflow-hidden rounded-2xl border border-border
+    bg-card
   `,
 };
 

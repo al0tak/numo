@@ -5,7 +5,7 @@ import { SuperMenu } from "../components/SuperMenu";
 export function HomePage() {
   return (
     <motion.div
-      className="flex min-h-screen items-center justify-center"
+      className="flex min-h-screen items-center justify-center px-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
