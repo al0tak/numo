@@ -223,21 +223,28 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
         document.body,
       )}
 
-      <button
-        type="button"
-        aria-label={t.editor.downloadPdf}
-        onClick={handleDownload}
-        onPointerDown={(e) => e.stopPropagation()}
+      <div
         className="
-          absolute right-3 bottom-3 flex h-10 cursor-pointer items-center gap-2
-          rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground
-          shadow-sm transition-opacity
-          hover:opacity-90
+          absolute right-3 bottom-3 flex items-center gap-1 rounded-lg border
+          border-border bg-card/80 p-1 shadow-sm backdrop-blur-sm
         "
+        onPointerDown={(e) => e.stopPropagation()}
       >
-        <Download size={16} />
-        <span>{t.editor.downloadPdf}</span>
-      </button>
+        <button
+          type="button"
+          aria-label={t.editor.downloadPdf}
+          onClick={handleDownload}
+          className="
+            flex h-8 cursor-pointer items-center justify-center gap-1.5
+            rounded-md px-2 text-xs font-medium text-foreground/70
+            transition-colors
+            hover:bg-foreground/5 hover:text-foreground
+          "
+        >
+          <Download size={14} />
+          <span>{t.editor.downloadPdf}</span>
+        </button>
+      </div>
 
       <div
         className="
