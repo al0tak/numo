@@ -40,4 +40,15 @@ export default defineConfig([
       ...betterTailwindcss.configs.recommended.rules,
     },
   },
+  {
+    // Test files contain plain string literals (e.g. exercising `cn`) that look
+    // like Tailwind classes but aren't markup — don't lint them as such.
+    files: ["**/*.test.{ts,tsx}", "src/test/**/*.{ts,tsx}"],
+    rules: Object.fromEntries(
+      Object.keys(betterTailwindcss.configs.recommended.rules).map((rule) => [
+        rule,
+        "off",
+      ]),
+    ),
+  },
 ]);
