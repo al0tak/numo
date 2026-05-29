@@ -22,7 +22,7 @@ const BASE_Y = -A4_HEIGHT / 2;
 const FIT_PADDING = 32;
 const MIN_ZOOM = 0.1;
 const MAX_ZOOM = 5;
-const WHEEL_ZOOM_INTENSITY = 0.0015;
+const WHEEL_ZOOM_INTENSITY = 0.004;
 const BUTTON_ZOOM_STEP = 1.2;
 const SPRING = { type: "spring", stiffness: 320, damping: 32, mass: 0.5 } as const;
 
