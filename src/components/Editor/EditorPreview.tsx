@@ -129,14 +129,20 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const rect = el.getBoundingClientRect();
-      const focalX = e.clientX - rect.left;
-      const focalY = e.clientY - rect.top;
-      const factor = Math.exp(-e.deltaY * WHEEL_ZOOM_INTENSITY);
-      applyZoom(factor, focalX, focalY, false);
+      if (e.ctrlKey || e.metaKey) {
+        const focalX = e.clientX - rect.left;
+        const focalY = e.clientY - rect.top;
+        const factor = Math.exp(-e.deltaY * WHEEL_ZOOM_INTENSITY);
+        applyZoom(factor, focalX, focalY, false);
+      } else {
+        stopAll();
+        x.set(x.get() - e.deltaX);
+        y.set(y.get() - e.deltaY);
+      }
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
-  }, [applyZoom]);
+  }, [applyZoom, stopAll, x, y]);
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
