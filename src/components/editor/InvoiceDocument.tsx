@@ -1,4 +1,4 @@
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/lib/i18n";
 import { type Invoice, type Position } from "@/types/invoice";
 
 interface InvoiceDocumentProps {

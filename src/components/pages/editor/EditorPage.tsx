@@ -1,15 +1,13 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
 
-import { SuperMenuEditorBody } from "@/components/SuperMenu/editor/SuperMenuEditorBody";
-import { useTranslation } from "@/i18n";
-import { consumeImportedInvoice } from "@/lib/invoiceIo";
+import { EditorPreview } from "@/components/editor";
+import { useTranslation } from "@/lib/i18n";
+import { consumeImportedInvoice } from "@/lib/invoiceImport";
 import { createEmptyInvoice, type Invoice } from "@/types/invoice";
 
-import { EditorPreview } from "../components/Editor";
-import { SuperMenu } from "../components/SuperMenu";
+import { EditorSidebar } from "./EditorSidebar";
 
-export function InvoicesNewPage() {
+export function EditorPage() {
   const [invoice, setInvoice] = useState<Invoice>(
     () => consumeImportedInvoice() ?? createEmptyInvoice(),
   );
@@ -29,7 +27,7 @@ export function InvoicesNewPage() {
         ">
           {activeView === "form" ? (
             <div className="h-full overflow-y-auto p-5">
-              <SuperMenuEditorBody invoice={invoice} onInvoiceChange={setInvoice} />
+              <EditorSidebar invoice={invoice} onInvoiceChange={setInvoice} />
             </div>
           ) : (
             <EditorPreview invoice={invoice} />
@@ -65,26 +63,20 @@ export function InvoicesNewPage() {
       </div>
 
       {/* Desktop layout */}
-      <motion.div
-        className="
-          hidden h-screen gap-4 overflow-hidden p-4
-          md:flex
-        "
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.15 }}
-      >
-        <SuperMenu variant="editor" invoice={invoice} onInvoiceChange={setInvoice} />
-        <motion.div
-          className="flex min-w-0 flex-1"
-          initial={{ opacity: 0, x: 16 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.15, duration: 0.25 }}
-        >
+      <div className="
+        hidden h-screen gap-4 overflow-hidden p-4
+        md:flex
+      ">
+        <aside className="
+          flex h-full w-[280px] shrink-0 flex-col gap-4 overflow-y-auto
+          rounded-2xl border border-border bg-card p-5
+        ">
+          <EditorSidebar invoice={invoice} onInvoiceChange={setInvoice} />
+        </aside>
+        <div className="flex min-w-0 flex-1">
           <EditorPreview invoice={invoice} />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { Dialog as DialogPrimitive } from "radix-ui";
 
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/lib/i18n";
 
 interface DialogProps {
   open: boolean;

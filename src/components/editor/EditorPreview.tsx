@@ -1,4 +1,3 @@
-import { animate, motion, useMotionValue, useMotionValueEvent } from "framer-motion";
 import { Download, Maximize2, ZoomIn, ZoomOut } from "lucide-react";
 import {
   type PointerEvent as ReactPointerEvent,
@@ -10,7 +9,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/lib/i18n";
 import { type Invoice } from "@/types/invoice";
 
 import { InvoiceDocument } from "./InvoiceDocument";
@@ -24,10 +23,20 @@ const MIN_ZOOM = 0.1;
 const MAX_ZOOM = 5;
 const WHEEL_ZOOM_INTENSITY = 0.004;
 const BUTTON_ZOOM_STEP = 1.2;
-const SPRING = { type: "spring", stiffness: 320, damping: 32, mass: 0.5 } as const;
+// CSS transition used for the button-driven zoom / fit; pan and wheel updates
+// are applied instantly (no transition).
+const ANIM_MS = 250;
+const ANIM_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+const INITIAL_TRANSFORM: Transform = { x: BASE_X, y: BASE_Y, scale: 1 };
 
 interface EditorPreviewProps {
   invoice: Invoice;
+}
+
+interface Transform {
+  x: number;
+  y: number;
+  scale: number;
 }
 
 function clampZoom(z: number) {
@@ -57,20 +66,19 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
-  const [zoomDisplay, setZoomDisplay] = useState(1);
   const initializedRef = useRef(false);
 
-  const x = useMotionValue(BASE_X);
-  const y = useMotionValue(BASE_Y);
-  const scale = useMotionValue(1);
+  // `transformRef` mirrors `transform` so the imperative wheel / pointer handlers
+  // always read the latest value without stale closures.
+  const transformRef = useRef<Transform>(INITIAL_TRANSFORM);
+  const [transform, setTransformState] = useState<Transform>(INITIAL_TRANSFORM);
+  const [animating, setAnimating] = useState(false);
 
-  useMotionValueEvent(scale, "change", (v) => setZoomDisplay(v));
-
-  const stopAll = useCallback(() => {
-    x.stop();
-    y.stop();
-    scale.stop();
-  }, [x, y, scale]);
+  const commit = useCallback((next: Transform, animate: boolean) => {
+    transformRef.current = next;
+    setAnimating(animate);
+    setTransformState(next);
+  }, []);
 
   useLayoutEffect(() => {
     const el = containerRef.current;
@@ -82,45 +90,34 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
       setSize({ width, height });
       if (!initializedRef.current && width > 0 && height > 0) {
         initializedRef.current = true;
-        scale.set(computeFitZoom(width, height));
-        x.set(BASE_X);
-        y.set(BASE_Y);
+        commit({ x: BASE_X, y: BASE_Y, scale: computeFitZoom(width, height) }, false);
       }
     });
     observer.observe(el);
     return () => observer.disconnect();
-  }, [scale, x, y]);
+  }, [commit]);
 
   const applyZoom = useCallback(
-    (factor: number, focalX: number, focalY: number, animated: boolean) => {
-      stopAll();
-      const currentZoom = scale.get();
-      const nextZoom = clampZoom(currentZoom * factor);
-      if (nextZoom === currentZoom) return;
-      const ratio = nextZoom / currentZoom;
+    (factor: number, focalX: number, focalY: number, animate: boolean) => {
+      const cur = transformRef.current;
+      const nextZoom = clampZoom(cur.scale * factor);
+      if (nextZoom === cur.scale) return;
+      const ratio = nextZoom / cur.scale;
       const el = containerRef.current;
-      let nextX = x.get();
-      let nextY = y.get();
+      let nextX = cur.x;
+      let nextY = cur.y;
       if (el) {
         const rect = el.getBoundingClientRect();
         const dcx = focalX - rect.width / 2;
         const dcy = focalY - rect.height / 2;
-        const currentPanX = x.get() - BASE_X;
-        const currentPanY = y.get() - BASE_Y;
+        const currentPanX = cur.x - BASE_X;
+        const currentPanY = cur.y - BASE_Y;
         nextX = BASE_X + dcx * (1 - ratio) + currentPanX * ratio;
         nextY = BASE_Y + dcy * (1 - ratio) + currentPanY * ratio;
       }
-      if (animated) {
-        animate(scale, nextZoom, SPRING);
-        animate(x, nextX, SPRING);
-        animate(y, nextY, SPRING);
-      } else {
-        scale.set(nextZoom);
-        x.set(nextX);
-        y.set(nextY);
-      }
+      commit({ x: nextX, y: nextY, scale: nextZoom }, animate);
     },
-    [scale, x, y, stopAll],
+    [commit],
   );
 
   useEffect(() => {
@@ -135,26 +132,29 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
         const factor = Math.exp(-e.deltaY * WHEEL_ZOOM_INTENSITY);
         applyZoom(factor, focalX, focalY, false);
       } else {
-        stopAll();
-        x.set(x.get() - e.deltaX);
-        y.set(y.get() - e.deltaY);
+        const cur = transformRef.current;
+        commit({ ...cur, x: cur.x - e.deltaX, y: cur.y - e.deltaY }, false);
       }
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
-  }, [applyZoom, stopAll, x, y]);
+  }, [applyZoom, commit]);
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
-    stopAll();
+    const start = transformRef.current;
     const startClientX = e.clientX;
     const startClientY = e.clientY;
-    const startX = x.get();
-    const startY = y.get();
 
     const onMove = (ev: PointerEvent) => {
-      x.set(startX + (ev.clientX - startClientX));
-      y.set(startY + (ev.clientY - startClientY));
+      commit(
+        {
+          x: start.x + (ev.clientX - startClientX),
+          y: start.y + (ev.clientY - startClientY),
+          scale: start.scale,
+        },
+        false,
+      );
     };
     const cleanup = () => {
       window.removeEventListener("pointermove", onMove);
@@ -176,10 +176,7 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
   };
   const handleFit = () => {
     if (size.width === 0 || size.height === 0) return;
-    stopAll();
-    animate(scale, computeFitZoom(size.width, size.height), SPRING);
-    animate(x, BASE_X, SPRING);
-    animate(y, BASE_Y, SPRING);
+    commit({ x: BASE_X, y: BASE_Y, scale: computeFitZoom(size.width, size.height) }, true);
   };
 
   const handleDownload = () => {
@@ -206,19 +203,18 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
       "
       onPointerDown={onPointerDown}
     >
-      <motion.div
+      <div
         className="absolute top-1/2 left-1/2 rounded-sm bg-white shadow-xl"
         style={{
           width: A4_WIDTH,
           height: A4_HEIGHT,
-          x,
-          y,
-          scale,
+          transform: `translate(${transform.x}px, ${transform.y}px) scale(${transform.scale})`,
+          transition: animating ? `transform ${ANIM_MS}ms ${ANIM_EASE}` : "none",
           willChange: "transform",
         }}
       >
         <InvoiceDocument invoice={invoice} />
-      </motion.div>
+      </div>
 
       {/* Print-only copy of the document, rendered to <body> so the print
           stylesheet can show it on its own clean A4 page (see global.css). */}
@@ -263,7 +259,7 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
           type="button"
           aria-label={t.editor.zoomOut}
           onClick={handleZoomOut}
-          disabled={zoomDisplay <= MIN_ZOOM + 1e-6}
+          disabled={transform.scale <= MIN_ZOOM + 1e-6}
           className="
             flex size-8 cursor-pointer items-center justify-center rounded-md
             text-foreground/70 transition-colors
@@ -286,13 +282,13 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
           "
         >
           <Maximize2 size={14} />
-          <span className="tabular-nums">{Math.round(zoomDisplay * 100)}%</span>
+          <span className="tabular-nums">{Math.round(transform.scale * 100)}%</span>
         </button>
         <button
           type="button"
           aria-label={t.editor.zoomIn}
           onClick={handleZoomIn}
-          disabled={zoomDisplay >= MAX_ZOOM - 1e-6}
+          disabled={transform.scale >= MAX_ZOOM - 1e-6}
           className="
             flex size-8 cursor-pointer items-center justify-center rounded-md
             text-foreground/70 transition-colors

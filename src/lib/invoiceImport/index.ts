@@ -6,33 +6,6 @@ import {
 
 const IMPORT_STORAGE_KEY = "numo:imported-invoice";
 
-export function serializeInvoice(invoice: Invoice): string {
-  return JSON.stringify(invoice, null, 2);
-}
-
-function withJsonExtension(name: string): string {
-  const trimmed = name.trim() || "invoice";
-  return trimmed.toLowerCase().endsWith(".json") ? trimmed : `${trimmed}.json`;
-}
-
-export function defaultInvoiceFileName(invoice: Invoice): string {
-  return invoice.companyName.trim() || "invoice";
-}
-
-export function downloadInvoiceJson(invoice: Invoice, fileName: string): void {
-  const blob = new Blob([serializeInvoice(invoice)], {
-    type: "application/json",
-  });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = withJsonExtension(fileName);
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
-}
-
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
@@ -86,7 +59,7 @@ export function parseInvoiceJson(text: string): Invoice {
 }
 
 export function stashImportedInvoice(invoice: Invoice): void {
-  sessionStorage.setItem(IMPORT_STORAGE_KEY, serializeInvoice(invoice));
+  sessionStorage.setItem(IMPORT_STORAGE_KEY, JSON.stringify(invoice, null, 2));
 }
 
 export function consumeImportedInvoice(): Invoice | null {

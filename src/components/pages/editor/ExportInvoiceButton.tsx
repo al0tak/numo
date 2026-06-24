@@ -2,8 +2,8 @@ import { Upload } from "lucide-react";
 import { useState } from "react";
 
 import { Dialog } from "@/components/ui/dialog";
-import { useTranslation } from "@/i18n";
-import { defaultInvoiceFileName, downloadInvoiceJson } from "@/lib/invoiceIo";
+import { useTranslation } from "@/lib/i18n";
+import { defaultInvoiceFileName, downloadInvoiceJson } from "@/lib/invoiceExport";
 import { type Invoice } from "@/types/invoice";
 
 interface ExportInvoiceButtonProps {

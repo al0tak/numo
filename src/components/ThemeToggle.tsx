@@ -1,7 +1,6 @@
-import { motion } from "framer-motion";
 import { Monitor, Moon, Sun } from "lucide-react";
 
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/lib/i18n";
 import { type ThemeMode, useTheme } from "@/lib/theme";
 
 const OPTIONS: { mode: ThemeMode; labelKey: "light" | "auto" | "dark"; Icon: typeof Sun }[] = [
@@ -40,11 +39,7 @@ export function ThemeToggle() {
               "
             >
               {active && (
-                <motion.span
-                  layoutId="theme-toggle-active"
-                  transition={{ type: "spring", stiffness: 500, damping: 38 }}
-                  className="absolute inset-0 rounded-sm bg-card shadow-sm"
-                />
+                <span className="absolute inset-0 rounded-sm bg-card shadow-sm" />
               )}
               <span
                 className={[

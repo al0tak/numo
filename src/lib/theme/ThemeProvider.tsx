@@ -5,7 +5,7 @@ import {
   THEME_STORAGE_KEY,
   ThemeContext,
   type ThemeMode,
-} from "./theme";
+} from "./context";
 
 function getInitialMode(): ThemeMode {
   if (typeof window === "undefined") return "auto";

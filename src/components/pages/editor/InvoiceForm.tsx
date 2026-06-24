@@ -1,9 +1,9 @@
 import { Plus, X } from "lucide-react";
 
-import { useTranslation } from "@/i18n";
+import { useTranslation } from "@/lib/i18n";
 import { createEmptyPosition, type Invoice, type Position } from "@/types/invoice";
 
-interface SuperMenuInvoiceFormProps {
+interface InvoiceFormProps {
   invoice: Invoice;
   onChange: (invoice: Invoice) => void;
 }
@@ -25,7 +25,7 @@ const textareaClass = `
 const labelClass = "flex flex-col gap-1";
 const labelTextClass = "text-xs text-muted-foreground";
 
-export function SuperMenuInvoiceForm({ invoice, onChange }: SuperMenuInvoiceFormProps) {
+export function InvoiceForm({ invoice, onChange }: InvoiceFormProps) {
   const { t } = useTranslation();
 
   const update = <K extends keyof Invoice>(key: K, value: Invoice[K]) => {

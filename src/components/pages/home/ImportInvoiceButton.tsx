@@ -1,12 +1,12 @@
-import { useNavigate } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Dialog } from "@/components/ui/dialog";
-import { useTranslation } from "@/i18n";
-import { parseInvoiceJson, stashImportedInvoice } from "@/lib/invoiceIo";
+import { useTranslation } from "@/lib/i18n";
+import { parseInvoiceJson, stashImportedInvoice } from "@/lib/invoiceImport";
 
-import { SuperMenuHomeButton } from "./SuperMenuHomeButton";
+import { HomeMenuButton } from "./HomeMenuButton";
 
 export function ImportInvoiceButton() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export function ImportInvoiceButton() {
     try {
       const invoice = parseInvoiceJson(await file.text());
       stashImportedInvoice(invoice);
-      await navigate({ to: "/invoices/new" });
+      await navigate("/invoices/new");
     } catch {
       setError(true);
     }
@@ -37,7 +37,7 @@ export function ImportInvoiceButton() {
           if (file) void handleFile(file);
         }}
       />
-      <SuperMenuHomeButton
+      <HomeMenuButton
         icon={<Download size={22} />}
         label={t.io.import}
         onClick={() => inputRef.current?.click()}

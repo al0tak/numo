@@ -1,4 +1,4 @@
-import { type Language, LANGUAGES, useTranslation } from "@/i18n";
+import { type Language, LANGUAGES, useTranslation } from "@/lib/i18n";
 
 export function LanguageSwitcher() {
   const { language, setLanguage, t } = useTranslation();
