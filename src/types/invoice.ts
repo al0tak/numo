@@ -15,11 +15,11 @@ export interface Invoice {
   date: string;
 }
 
-export function createEmptyPosition(): Position {
+export const createEmptyPosition = (): Position => {
   return { description: "", quantity: 1, unitPrice: 0 };
-}
+};
 
-export function createEmptyInvoice(): Invoice {
+export const createEmptyInvoice = (): Invoice => {
   return {
     companyName: "",
     topText: "",
@@ -30,4 +30,4 @@ export function createEmptyInvoice(): Invoice {
     footer: "",
     date: new Date().toISOString().slice(0, 10),
   };
-}
+};

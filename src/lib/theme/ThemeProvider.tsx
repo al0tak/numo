@@ -7,21 +7,21 @@ import {
   type ThemeMode,
 } from "./context";
 
-function getInitialMode(): ThemeMode {
+const getInitialMode = (): ThemeMode => {
   if (typeof window === "undefined") return "auto";
   const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
   return isThemeMode(stored) ? stored : "auto";
-}
+};
 
-function applyTheme(mode: ThemeMode) {
+const applyTheme = (mode: ThemeMode) => {
   const isDark =
     mode === "dark" ||
     (mode === "auto" &&
       window.matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.classList.toggle("dark", isDark);
-}
+};
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [mode, setMode] = useState<ThemeMode>(getInitialMode);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [mode]);
 
   return <ThemeContext value={{ mode, setMode }}>{children}</ThemeContext>;
-}
+};

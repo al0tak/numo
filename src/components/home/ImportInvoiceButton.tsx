@@ -2,13 +2,13 @@ import { Download } from "lucide-react";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Dialog } from "@/components/ui/dialog";
+import { Dialog } from "@/components/shared/Dialog";
 import { useTranslation } from "@/lib/i18n";
-import { parseInvoiceJson, stashImportedInvoice } from "@/lib/invoiceImport";
+import { parseInvoiceJson, stashImportedInvoice } from "@/lib/invoiceFileManagement";
 
 import { HomeMenuButton } from "./HomeMenuButton";
 
-export function ImportInvoiceButton() {
+export const ImportInvoiceButton = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -50,4 +50,4 @@ export function ImportInvoiceButton() {
       />
     </>
   );
-}
+};

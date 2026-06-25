@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import betterTailwindcss from "eslint-plugin-better-tailwindcss";
+import preferArrowFunctions from "eslint-plugin-prefer-arrow-functions";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
@@ -20,6 +21,7 @@ export default defineConfig([
     plugins: {
       "simple-import-sort": simpleImportSort,
       "better-tailwindcss": betterTailwindcss,
+      "prefer-arrow-functions": preferArrowFunctions,
     },
     languageOptions: {
       globals: globals.browser,
@@ -31,6 +33,9 @@ export default defineConfig([
       },
     },
     rules: {
+      // Enforce arrow functions over both `function` declarations and expressions.
+      "prefer-arrow-functions/prefer-arrow-functions": "error",
+
       // Imports
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",

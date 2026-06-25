@@ -11,13 +11,13 @@ interface DialogProps {
   children?: React.ReactNode;
 }
 
-export function Dialog({
+export const Dialog = ({
   open,
   onOpenChange,
   title,
   description,
   children,
-}: DialogProps) {
+}: DialogProps) => {
   const { t } = useTranslation();
 
   return (
@@ -56,4 +56,4 @@ export function Dialog({
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
   );
-}
+};

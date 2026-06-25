@@ -4,7 +4,7 @@ interface HomeMenuButtonProps {
   onClick: () => void;
 }
 
-export function HomeMenuButton({ icon, label, onClick }: HomeMenuButtonProps) {
+export const HomeMenuButton = ({ icon, label, onClick }: HomeMenuButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -19,4 +19,4 @@ export function HomeMenuButton({ icon, label, onClick }: HomeMenuButtonProps) {
       <span className="text-center text-xs/tight font-medium">{label}</span>
     </button>
   );
-}
+};

@@ -6,15 +6,17 @@ import { useTranslation } from "@/lib/i18n";
 import { HomeMenuButton } from "./HomeMenuButton";
 import { ImportInvoiceButton } from "./ImportInvoiceButton";
 
-export function HomeMenu() {
+export const HomeMenu = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   return (
-    <div className="
-      flex w-full max-w-[360px] flex-col items-center gap-5 rounded-3xl border
-      border-border bg-card/60 p-4 backdrop-blur-xl
-    ">
+    <div
+      className="
+        flex w-full max-w-90 flex-col items-center gap-5 rounded-3xl border
+        border-border p-4
+      "
+    >
       <span className="text-3xl font-semibold tracking-tight">numo</span>
 
       <div className="flex w-full gap-4">
@@ -32,4 +34,4 @@ export function HomeMenu() {
       </div>
     </div>
   );
-}
+};

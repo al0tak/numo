@@ -1,16 +1,16 @@
 import { Upload } from "lucide-react";
 import { useState } from "react";
 
-import { Dialog } from "@/components/ui/dialog";
+import { Dialog } from "@/components/shared/Dialog";
 import { useTranslation } from "@/lib/i18n";
-import { defaultInvoiceFileName, downloadInvoiceJson } from "@/lib/invoiceExport";
+import { defaultInvoiceFileName, downloadInvoiceJson } from "@/lib/invoiceFileManagement";
 import { type Invoice } from "@/types/invoice";
 
 interface ExportInvoiceButtonProps {
   invoice: Invoice;
 }
 
-export function ExportInvoiceButton({ invoice }: ExportInvoiceButtonProps) {
+export const ExportInvoiceButton = ({ invoice }: ExportInvoiceButtonProps) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -92,4 +92,4 @@ export function ExportInvoiceButton({ invoice }: ExportInvoiceButtonProps) {
       </Dialog>
     </>
   );
-}
+};

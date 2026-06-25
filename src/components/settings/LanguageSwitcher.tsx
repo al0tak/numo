@@ -1,6 +1,6 @@
 import { type Language, LANGUAGES, useTranslation } from "@/lib/i18n";
 
-export function LanguageSwitcher() {
+export const LanguageSwitcher = () => {
   const { language, setLanguage, t } = useTranslation();
 
   return (
@@ -24,4 +24,4 @@ export function LanguageSwitcher() {
       </select>
     </label>
   );
-}
+};

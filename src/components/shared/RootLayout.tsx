@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { EditorPage } from "@/components/pages/editor/EditorPage";
-import { HomePage } from "@/components/pages/home/HomePage";
-import { SettingsPage } from "@/components/pages/settings/SettingsPage";
+import { EditorPage } from "@/components/editor/EditorPage";
+import { HomePage } from "@/components/home/HomePage";
+import { SettingsPage } from "@/components/settings/SettingsPage";
 import { LanguageProvider } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
 
-export function RootLayout() {
+export const RootLayout = () => {
   return (
     <ThemeProvider>
       <LanguageProvider>
@@ -23,4 +23,4 @@ export function RootLayout() {
       </LanguageProvider>
     </ThemeProvider>
   );
-}
+};
