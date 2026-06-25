@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import { EditorPreview } from "@/components/editor";
 import { useTranslation } from "@/lib/i18n";
-import { consumeImportedInvoice } from "@/lib/invoiceImport";
+import { consumeImportedInvoice } from "@/lib/invoiceFileManagement";
 import { createEmptyInvoice, type Invoice } from "@/types/invoice";
 
+import { EditorPreview } from "./EditorPreview";
 import { EditorSidebar } from "./EditorSidebar";
 
-export function EditorPage() {
+export const EditorPage = () => {
   const [invoice, setInvoice] = useState<Invoice>(
     () => consumeImportedInvoice() ?? createEmptyInvoice(),
   );
@@ -79,4 +79,4 @@ export function EditorPage() {
       </div>
     </>
   );
-}
+};

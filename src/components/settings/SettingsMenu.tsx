@@ -1,10 +1,10 @@
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 
-export function SettingsMenu() {
+export const SettingsMenu = () => {
   const navigate = useNavigate();
 
   return (
@@ -33,4 +33,4 @@ export function SettingsMenu() {
       </div>
     </div>
   );
-}
+};

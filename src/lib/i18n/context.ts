@@ -10,8 +10,8 @@ export interface LanguageContextValue {
 
 export const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function useTranslation() {
+export const useTranslation = () => {
   const ctx = useContext(LanguageContext);
   if (!ctx) throw new Error("useTranslation must be used inside <LanguageProvider>");
   return ctx;
-}
+};

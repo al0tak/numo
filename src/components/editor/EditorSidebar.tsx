@@ -11,7 +11,7 @@ interface EditorSidebarProps {
   onInvoiceChange: (invoice: Invoice) => void;
 }
 
-export function EditorSidebar({ invoice, onInvoiceChange }: EditorSidebarProps) {
+export const EditorSidebar = ({ invoice, onInvoiceChange }: EditorSidebarProps) => {
   const navigate = useNavigate();
 
   return (
@@ -33,4 +33,4 @@ export function EditorSidebar({ invoice, onInvoiceChange }: EditorSidebarProps) 
       <InvoiceForm invoice={invoice} onChange={onInvoiceChange} />
     </>
   );
-}
+};

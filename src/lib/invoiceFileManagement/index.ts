@@ -6,11 +6,35 @@ import {
 
 const IMPORT_STORAGE_KEY = "numo:imported-invoice";
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
-}
+const serializeInvoice = (invoice: Invoice): string =>
+  JSON.stringify(invoice, null, 2);
 
-function parsePosition(value: unknown): Position {
+const withJsonExtension = (name: string): string => {
+  const trimmed = name.trim() || "invoice";
+  return trimmed.toLowerCase().endsWith(".json") ? trimmed : `${trimmed}.json`;
+};
+
+export const defaultInvoiceFileName = (invoice: Invoice): string =>
+  invoice.companyName.trim() || "invoice";
+
+export const downloadInvoiceJson = (invoice: Invoice, fileName: string): void => {
+  const blob = new Blob([serializeInvoice(invoice)], {
+    type: "application/json",
+  });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = withJsonExtension(fileName);
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+};
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null;
+
+const parsePosition = (value: unknown): Position => {
   if (!isRecord(value)) throw new Error("Invalid position");
   const { description, quantity, unitPrice } = value;
   if (
@@ -21,9 +45,9 @@ function parsePosition(value: unknown): Position {
     throw new Error("Invalid position");
   }
   return { description, quantity, unitPrice };
-}
+};
 
-export function parseInvoiceJson(text: string): Invoice {
+export const parseInvoiceJson = (text: string): Invoice => {
   const data: unknown = JSON.parse(text);
   if (!isRecord(data)) throw new Error("Invalid invoice");
 
@@ -56,13 +80,13 @@ export function parseInvoiceJson(text: string): Invoice {
     date: stringField("date"),
     positions,
   };
-}
+};
 
-export function stashImportedInvoice(invoice: Invoice): void {
-  sessionStorage.setItem(IMPORT_STORAGE_KEY, JSON.stringify(invoice, null, 2));
-}
+export const stashImportedInvoice = (invoice: Invoice): void => {
+  sessionStorage.setItem(IMPORT_STORAGE_KEY, serializeInvoice(invoice));
+};
 
-export function consumeImportedInvoice(): Invoice | null {
+export const consumeImportedInvoice = (): Invoice | null => {
   const raw = sessionStorage.getItem(IMPORT_STORAGE_KEY);
   if (raw === null) return null;
   sessionStorage.removeItem(IMPORT_STORAGE_KEY);
@@ -71,4 +95,4 @@ export function consumeImportedInvoice(): Invoice | null {
   } catch {
     return null;
   }
-}
+};

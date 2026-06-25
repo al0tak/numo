@@ -25,7 +25,7 @@ const textareaClass = `
 const labelClass = "flex flex-col gap-1";
 const labelTextClass = "text-xs text-muted-foreground";
 
-export function InvoiceForm({ invoice, onChange }: InvoiceFormProps) {
+export const InvoiceForm = ({ invoice, onChange }: InvoiceFormProps) => {
   const { t } = useTranslation();
 
   const update = <K extends keyof Invoice>(key: K, value: Invoice[K]) => {
@@ -211,4 +211,4 @@ export function InvoiceForm({ invoice, onChange }: InvoiceFormProps) {
       </label>
     </div>
   );
-}
+};

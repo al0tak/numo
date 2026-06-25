@@ -5,27 +5,27 @@ interface InvoiceDocumentProps {
   invoice: Invoice;
 }
 
-function positionTotal(position: Position) {
+const positionTotal = (position: Position) => {
   const q = Number.isFinite(position.quantity) ? position.quantity : 0;
   const p = Number.isFinite(position.unitPrice) ? position.unitPrice : 0;
   return q * p;
-}
+};
 
-function formatMoney(value: number) {
+const formatMoney = (value: number) => {
   return value.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-}
+};
 
-function formatDate(value: string) {
+const formatDate = (value: string) => {
   if (!value) return "";
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return value;
   return d.toLocaleDateString();
-}
+};
 
-export function InvoiceDocument({ invoice }: InvoiceDocumentProps) {
+export const InvoiceDocument = ({ invoice }: InvoiceDocumentProps) => {
   const { t } = useTranslation();
   const total = invoice.positions.reduce((sum, p) => sum + positionTotal(p), 0);
 
@@ -144,4 +144,4 @@ export function InvoiceDocument({ invoice }: InvoiceDocumentProps) {
       )}
     </div>
   );
-}
+};

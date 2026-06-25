@@ -9,7 +9,7 @@ const OPTIONS: { mode: ThemeMode; labelKey: "light" | "auto" | "dark"; Icon: typ
   { mode: "dark", labelKey: "dark", Icon: Moon },
 ];
 
-export function ThemeToggle() {
+export const ThemeToggle = () => {
   const { mode, setMode } = useTheme();
   const { t } = useTranslation();
 
@@ -56,4 +56,4 @@ export function ThemeToggle() {
       </div>
     </div>
   );
-}
+};

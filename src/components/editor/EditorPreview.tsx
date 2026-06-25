@@ -39,30 +39,30 @@ interface Transform {
   scale: number;
 }
 
-function clampZoom(z: number) {
+const clampZoom = (z: number) => {
   return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z));
-}
+};
 
-function computeFitZoom(containerWidth: number, containerHeight: number) {
+const computeFitZoom = (containerWidth: number, containerHeight: number) => {
   if (containerWidth <= 0 || containerHeight <= 0) return 1;
   const available = {
     w: Math.max(0, containerWidth - FIT_PADDING * 2),
     h: Math.max(0, containerHeight - FIT_PADDING * 2),
   };
   return clampZoom(Math.min(available.w / A4_WIDTH, available.h / A4_HEIGHT));
-}
+};
 
 // The browser uses document.title as the suggested "Save as PDF" filename, so we
 // derive a clean base name from the invoice (no extension — the browser adds .pdf).
-function invoicePrintTitle(invoice: Invoice, fallback: string) {
+const invoicePrintTitle = (invoice: Invoice, fallback: string) => {
   const base = (invoice.companyName || invoice.topText || fallback)
     .trim()
     .replace(/[^\wÀ-ɏЀ-ӿ-]+/g, "-")
     .replace(/^-+|-+$/g, "");
   return base || fallback;
-}
+};
 
-export function EditorPreview({ invoice }: EditorPreviewProps) {
+export const EditorPreview = ({ invoice }: EditorPreviewProps) => {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -302,4 +302,4 @@ export function EditorPreview({ invoice }: EditorPreviewProps) {
       </div>
     </div>
   );
-}
+};
